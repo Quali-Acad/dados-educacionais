@@ -1,1 +1,0 @@
-int(page.find_all("a", class_="page-numbers")[-2].text.replace(".", ""))

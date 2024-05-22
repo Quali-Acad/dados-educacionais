@@ -2,7 +2,6 @@ bs4==0.0.1
 fake-useragent==1.5.1
 pandas==2.1.2
 pydantic==2.4.2
-python>=3.11,<3.13
 requests==2.31.0
 mysql
 tqdm==4.66.1

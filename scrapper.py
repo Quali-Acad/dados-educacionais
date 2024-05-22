@@ -43,7 +43,7 @@ def run_scrapper(start_year: int, end_year: int, *, output_file: str):
 
         page_count = get_page_count(page)
 
-        for _ in trange.get(page_count, desc="page loop"):
+        for _ in trange(page_count, desc="page loop"):
             next_page_link = get_next_page_link(page)
 
             cards_iter = process_page(page, year)

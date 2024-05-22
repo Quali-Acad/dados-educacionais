@@ -186,7 +186,7 @@ def __get_list_csv_content(texto_out: list, notas: list, ano: str) -> list:
 
 		titulacao = str(e[6])
 		titulacao = titulacao.split()
-		texto_out[cont][4] = titulacao[1]
+		texto_out[cont][4] = titulacao[1] # TODO como proceder caso o len seja 0?
 
 		campus = str(e[7])
 		campus = campus.replace("Campus: ", "")
@@ -216,12 +216,18 @@ def __get_list_csv_content(texto_out: list, notas: list, ano: str) -> list:
 		# Avaliacao
 		try:
 			texto_out[cont][11] = site
-			texto_out[cont][12] = notas[cont]
+
+			if len(notas) != 0:  # TODO como proceder caso o len seja 0?
+				texto_out[cont][12] = notas[cont]
+			
 			texto_out[cont][13] = ano
 
 		except:
 			texto_out[cont].append(site)
-			texto_out[cont].append(notas[cont])
+
+			if len(notas) != 0:  # TODO como proceder caso o len seja 0?
+				texto_out[cont].append(notas[cont])
+			
 			texto_out[cont].append(ano)
 
 		cont = cont + 1

@@ -71,7 +71,7 @@ def __get_list_state_url() -> list:
 
 				next_page_number = int(page_number.next)
 
-				for page in range(1, next_page_number + 1): # todo + 2?
+				for page in range(1, next_page_number + 1):
 					# Adiciona as URL's de 2020
 					state_url = "https://publicacoes.estadao.com.br/guia-da-faculdade/page/" + str(page) + "/?post_type=faculdades_20" + \
 							str(cont_ano) + "&ano=20" + str(cont_ano) + "&s=" + state + "&tipo=&modalidade=&estado=&cidade=&classificacao="
@@ -92,7 +92,7 @@ def __get_random_user_agent():
 
 def __get_year(state_url: str) -> str:
 	'''
-		# todo ainda travaremos 2018 - 2022? 
+		# codigo antigo comentado caso sirva no futuro, travava 2018 - 2022 
 
 		if "2018" in url:
 			ano = "2018"
@@ -186,7 +186,11 @@ def __get_list_csv_content(texto_out: list, notas: list, ano: str) -> list:
 
 		titulacao = str(e[6])
 		titulacao = titulacao.split()
-		texto_out[cont][4] = titulacao[1] # TODO como proceder caso o len seja 0?
+
+		if len(titulacao) == 0:
+			texto_out[cont][4] = ''
+		else:
+			texto_out[cont][4] = titulacao[1]
 
 		campus = str(e[7])
 		campus = campus.replace("Campus: ", "")
@@ -217,17 +221,21 @@ def __get_list_csv_content(texto_out: list, notas: list, ano: str) -> list:
 		try:
 			texto_out[cont][11] = site
 
-			if len(notas) != 0:  # TODO como proceder caso o len seja 0?
+			if len(notas) == 0:  
+				texto_out[cont].append('')
+			else:
 				texto_out[cont][12] = notas[cont]
-			
+
 			texto_out[cont][13] = ano
 
 		except:
 			texto_out[cont].append(site)
 
-			if len(notas) != 0:  # TODO como proceder caso o len seja 0?
+			if len(notas) == 0:  
+				texto_out[cont].append('')
+			else:
 				texto_out[cont].append(notas[cont])
-			
+				
 			texto_out[cont].append(ano)
 
 		cont = cont + 1

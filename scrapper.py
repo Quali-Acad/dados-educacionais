@@ -1,5 +1,5 @@
 import re
-from typing import Iterable, Any
+from typing import Iterable, Any, Optional
 
 import pandas as pd
 import requests
@@ -21,12 +21,12 @@ class CardData(BaseModel):
     campus: str = Field(alias="CAMPUS")
     categoria: str = Field(alias="CATEGORIA")
     duracao: str = Field(alias="DURAÇÃO")
-    endereco: str | None = Field(None, alias="ENDEREÇO")
+    endereco: Optional[str] = Field(None, alias="ENDEREÇO")
     site: str = Field(alias="SITE")
-    telefone: str = Field(alias="TELEFONE")
+    telefone: Optional[str] = Field(None, alias="TELEFONE")
     avaliacao: int = Field(alias="AVALIAÇÃO")
-    cidade: str | None = Field(None, alias="CIDADE")
-    estado: str | None = Field(None, alias="ESTADO")
+    cidade: Optional[str] = Field(None, alias="CIDADE")
+    estado: Optional[str] = Field(None, alias="ESTADO")
     ano_avaliação: int = Field(alias="ANO DE AVALIAÇÃO")
 
 
@@ -72,7 +72,7 @@ def get_page_by_year(year: int) -> soup:
 
 
 def get_page_from_url(url: str, **params) -> soup:
-    result = requests.get(url, params, stream=True)
+    result = requests.get(url, params=params, stream=True)
     return soup(result.content, "html.parser")
 
 
@@ -80,7 +80,7 @@ def get_page_count(page: soup) -> int:
     return int(page.find_all("a", class_="page-numbers")[-2].text.replace(".", ""))
 
 
-def get_next_page_link(page: soup) -> str | None:
+def get_next_page_link(page: soup) -> Optional[str]:
     link = page.find("a", class_="next")
     if link:
         return link.get("href")

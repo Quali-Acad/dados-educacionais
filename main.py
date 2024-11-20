@@ -1,6 +1,5 @@
-from scrapper import run_scrapper
-from guia_faculdade import run_guia_faculdade
+from guia_da_faculdade import run_scrapper
+from estado import Estado
 
 if __name__ == "__main__":
-    run_scrapper(2022, 2023, output_file="dados_academicos.csv")  # todo testar 2018
-    # run_guia_faculdade() DEPRECATED
+    run_scrapper(2023, 2023, Estado, output_file="dados_academicos.csv")
